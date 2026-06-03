@@ -1,0 +1,24 @@
+{
+  "model_name": "resnet50",
+  "num_classes": 2,
+  "class_names": [
+    "Fake",
+    "Real"
+  ],
+  "class_to_idx": {
+    "Fake": 0,
+    "Real": 1
+  },
+  "input_size": 224,
+  "normalize_mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "normalize_std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "gradcam_layer": "layer4"
+}
