@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 
-const API_URL = "http://localhost:3000";
+const API_URL = "https://deeffakedetector.onrender.com";
 
 const formatPercent = (v) => `${Number(v).toFixed(1)}%`;
 
