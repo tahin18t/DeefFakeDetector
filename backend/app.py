@@ -25,7 +25,7 @@ MODELS_DIR = os.path.join(os.path.dirname(__file__), "models")
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {DEVICE}")
 
-MODEL_URL = os.environ.get("https://drive.google.com/file/d/1ggnHZ9AvbbfT0hbQyGOU1SETvBgrWksK/view?usp=sharing")
+MODEL_URL = os.environ.get("MODEL_URL")
 
 def download_model(path):
     if os.path.exists(path):
