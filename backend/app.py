@@ -13,6 +13,7 @@ import io
 import base64
 import json
 import os
+import requests
 
 app = Flask(__name__)
 CORS(app)
@@ -23,6 +24,20 @@ CORS(app)
 MODELS_DIR = os.path.join(os.path.dirname(__file__), "models")
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {DEVICE}")
+
+MODEL_URL = os.environ.get("https://drive.google.com/file/d/1ggnHZ9AvbbfT0hbQyGOU1SETvBgrWksK/view?usp=sharing")
+
+def download_model(path):
+    if os.path.exists(path):
+        return
+    if not MODEL_URL:
+        raise RuntimeError("MODEL_URL not set")
+    resp = requests.get(MODEL_URL, stream=True)
+    resp.raise_for_status()
+    with open(path, "wb") as f:
+        for chunk in resp.iter_content(1024*1024):
+            if chunk:
+                f.write(chunk)
 
 # ==========================================
 # LOAD MODEL + META
@@ -39,6 +54,7 @@ def build_resnet50(num_classes):
 def load_model_and_meta():
     meta_path = os.path.join(MODELS_DIR, "resnet50_meta.json")
     weights_path = os.path.join(MODELS_DIR, "resnet50_best.pth")
+    download_model(weights_path)
 
     with open(meta_path) as f:
         meta = json.load(f)
